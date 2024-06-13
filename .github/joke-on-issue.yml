@@ -1,0 +1,27 @@
+name: Chuck Norris Joke on Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  chuck-norris-joke:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Fetch and Comment Chuck Norris Joke
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        python fetch_joke.py
